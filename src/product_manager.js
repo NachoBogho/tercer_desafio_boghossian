@@ -1,13 +1,13 @@
-const fs = require('fs').promises;
+import { promises as fsPromises } from 'fs';
 
 class ProductManager {
   constructor(filePath) {
     this.path = filePath;
   }
 
-  async loadProducts() {
+  loadProducts = async () => {
     try {
-      const data = await fs.readFile(this.path, 'utf-8');
+      const data = await fsPromises.readFile(this.path, 'utf-8');
       console.log('Contenido del archivo JSON:', data);
       return JSON.parse(data);
     } catch (error) {
@@ -15,10 +15,9 @@ class ProductManager {
       return [];
     }
   }
-  
 
   saveProducts = async (products) => {
-    await fs.writeFile(this.path, JSON.stringify(products, null, 2), 'utf-8');
+    await fsPromises.writeFile(this.path, JSON.stringify(products, null, 2), 'utf-8');
   };
 
   addProduct = async (product) => {
@@ -68,4 +67,4 @@ class ProductManager {
   };
 }
 
-module.exports = ProductManager;
+export default ProductManager;
